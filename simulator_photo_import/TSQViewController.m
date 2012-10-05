@@ -97,8 +97,11 @@ NSString * const TSQTraverseSubdirectoriesKey = @"TSQTraverseSubdirectories";
             }
         }
     }
+    _isRunning = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
         self.progressLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Done!", @"")];
+        self.progressView.alpha = 0.f;
+        [self.startButton setTitle:NSLocalizedString(@"Start", @"") forState:UIControlStateNormal];
     });
 }
 
