@@ -12,4 +12,5 @@ simulator_photo_import makes it easy to populate the Photo Library in the iPhone
 3. Run in the Simulator.
 4. Press the 'Start' button.
 
-
+Special thanks to the very fine folks at [Everyme](http://everyme.com) for
+giving me the idea and letting me work on it in their office.
