@@ -13,5 +13,8 @@
 @property (nonatomic, weak) IBOutlet UIProgressView *progressView;
 @property (nonatomic, weak) IBOutlet UILabel *progressLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@property (nonatomic, weak) IBOutlet UIButton *startButton;
+
+- (IBAction)startButton:(id)sender;
 
 @end

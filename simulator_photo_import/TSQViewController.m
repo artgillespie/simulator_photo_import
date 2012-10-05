@@ -17,7 +17,9 @@ BOOL const TRAVERSE_SUBDIRECTORIES = YES;
 
 @end
 
-@implementation TSQViewController
+@implementation TSQViewController {
+    BOOL _isRunning;
+}
 
 - (void)loadImagesInDirectoryAtPath:(NSString *)directoryPath {
     NSFileManager *fileManager = [[NSFileManager alloc] init];
@@ -73,6 +75,9 @@ BOOL const TRAVERSE_SUBDIRECTORIES = YES;
             if (0 != result) {
                 NSLog(@"Timed out waiting for library to write...");
             }
+            if (NO == _isRunning) {
+                break;
+            }
         } // autoreleasepool
     } // for (NSString *path in entries)
 }
@@ -86,6 +91,9 @@ BOOL const TRAVERSE_SUBDIRECTORIES = YES;
         NSArray *subDirs = [fileManager subpathsOfDirectoryAtPath:topLevelDirectory error:&error];
         for (NSString *subDir in subDirs) {
             [self loadImagesInDirectoryAtPath:[topLevelDirectory stringByAppendingPathComponent:subDir]];
+            if (NO == _isRunning) {
+                break;
+            }
         }
     }
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -95,15 +103,33 @@ BOOL const TRAVERSE_SUBDIRECTORIES = YES;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self loadImages];
-    });
+    self.progressLabel.text = @"";
+    self.progressView.progress = 0.f;
+    self.progressView.alpha = 0.f;
+    _isRunning = NO;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Actions
+
+- (IBAction)startButton:(id)sender {
+    if (NO == _isRunning) {
+        [self.startButton setTitle:NSLocalizedString(@"Stop", @"") forState:UIControlStateNormal];
+        _isRunning = YES;
+        self.progressView.alpha = 1.f;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self loadImages];
+        });
+    } else {
+        _isRunning = NO;
+        self.progressView.alpha = 0.f;
+        self.progressLabel.text = @"";
+        [self.startButton setTitle:NSLocalizedString(@"Start", @"") forState:UIControlStateNormal];
+    }
 }
 
 @end

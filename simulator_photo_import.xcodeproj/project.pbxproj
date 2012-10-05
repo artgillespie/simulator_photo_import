@@ -47,9 +47,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C8AA678D161CC56100427A65 /* AssetsLibrary.framework in Frameworks */,
-				C8AA676A161CC13F00427A65 /* UIKit.framework in Frameworks */,
-				C8AA676C161CC13F00427A65 /* Foundation.framework in Frameworks */,
 				C8AA676E161CC13F00427A65 /* CoreGraphics.framework in Frameworks */,
+				C8AA676C161CC13F00427A65 /* Foundation.framework in Frameworks */,
+				C8AA676A161CC13F00427A65 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +296,7 @@
 				C8AA678B161CC13F00427A65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
