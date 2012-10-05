@@ -9,15 +9,11 @@
 #import "TSQViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-#define PHOTO_DIRECTORY @"/Users/artgillespie/Pictures/iPhoto Library/Masters"
-
-BOOL const TRAVERSE_SUBDIRECTORIES = YES;
-
-@interface TSQViewController ()
-
-@end
+NSString * const TSQImageImportPathKey = @"TSQImageImportPath";
+NSString * const TSQTraverseSubdirectoriesKey = @"TSQTraverseSubdirectories";
 
 @implementation TSQViewController {
+    // unset this flag after importing has started to cancel importing
     BOOL _isRunning;
 }
 
@@ -57,7 +53,6 @@ BOOL const TRAVERSE_SUBDIRECTORIES = YES;
             // okay, it's an image
             UIImage *image = [UIImage imageWithContentsOfFile:fullPath];
             if (nil == image) {
-                NSLog(@"File at path %@ return nil image...", fullPath);
                 // or, maybe... not
                 continue;
             }
@@ -67,14 +62,11 @@ BOOL const TRAVERSE_SUBDIRECTORIES = YES;
 
             [library writeImageToSavedPhotosAlbum:image.CGImage orientation:image.imageOrientation completionBlock:^(NSURL *assetURL, NSError *error) {
                 if (nil != error) {
-                    NSLog(@"error writing image: %@", error);
+                    [self presentError:[NSString stringWithFormat:NSLocalizedString(@"Error writing image: %@", @""), error]];
                 }
                 dispatch_semaphore_signal(wait_semaphore);
             }];
-            long result = dispatch_semaphore_wait(wait_semaphore, DISPATCH_TIME_FOREVER);
-            if (0 != result) {
-                NSLog(@"Timed out waiting for library to write...");
-            }
+            __unused long result = dispatch_semaphore_wait(wait_semaphore, DISPATCH_TIME_FOREVER);
             if (NO == _isRunning) {
                 break;
             }
@@ -83,9 +75,18 @@ BOOL const TRAVERSE_SUBDIRECTORIES = YES;
 }
 
 - (void)loadImages {
-    NSString *topLevelDirectory = PHOTO_DIRECTORY;
+    NSString *topLevelDirectory = [[[NSBundle mainBundle] infoDictionary] valueForKey:TSQImageImportPathKey];
+    NSNumber *traverseSubdirs = [[[NSBundle mainBundle] infoDictionary] valueForKey:TSQTraverseSubdirectoriesKey];
+    if (nil == topLevelDirectory || nil == traverseSubdirs) {
+        [self presentError:NSLocalizedString(@"Make sure you've set 'TSQImageImportPath' and 'TSQTraverseSubdirectories' in Info.plist and try again", @"")];
+        return;
+    }
+    if (NO == [[NSFileManager defaultManager] fileExistsAtPath:topLevelDirectory]) {
+        [self presentError:[NSString stringWithFormat:NSLocalizedString(@"Can't find image import path at %@", @""), topLevelDirectory]];
+        return;
+    }
     [self loadImagesInDirectoryAtPath:topLevelDirectory];
-    if (YES == TRAVERSE_SUBDIRECTORIES) {
+    if (YES == [traverseSubdirs boolValue]) {
         NSFileManager *fileManager = [[NSFileManager alloc] init];
         NSError *error = nil;
         NSArray *subDirs = [fileManager subpathsOfDirectoryAtPath:topLevelDirectory error:&error];
@@ -132,4 +133,12 @@ BOOL const TRAVERSE_SUBDIRECTORIES = YES;
     }
 }
 
+- (void)presentError:(NSString *)msg {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"")
+                                                    message:msg
+                                                   delegate:nil
+                                          cancelButtonTitle:NSLocalizedString(@"OK", @"")
+                                          otherButtonTitles:nil];
+    [alert show];
+}
 @end

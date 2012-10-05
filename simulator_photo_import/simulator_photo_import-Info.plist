@@ -34,5 +34,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>TSQImageImportPath</key>
+	<string>/Users/artgillespie/Pictures/iPhoto Library/Masters</string>
+	<key>TSQTraverseSubdirectories</key>
+	<true/>
 </dict>
 </plist>
