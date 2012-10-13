@@ -142,6 +142,13 @@ NSString * const TSQTraverseSubdirectoriesKey = @"TSQTraverseSubdirectories";
                                                    delegate:nil
                                           cancelButtonTitle:NSLocalizedString(@"OK", @"")
                                           otherButtonTitles:nil];
-    [alert show];
+
+    if (YES == [NSThread isMainThread]) {
+        [alert show];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [alert show];
+        });
+    }
 }
 @end
