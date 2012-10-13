@@ -268,6 +268,7 @@
 				GCC_PREFIX_HEADER = "simulator_photo_import/simulator_photo_import-Prefix.pch";
 				INFOPLIST_FILE = "simulator_photo_import/simulator_photo_import-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = "-Wall";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -279,6 +280,7 @@
 				GCC_PREFIX_HEADER = "simulator_photo_import/simulator_photo_import-Prefix.pch";
 				INFOPLIST_FILE = "simulator_photo_import/simulator_photo_import-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = "-Wall";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
