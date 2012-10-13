@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C88DE0A71629CAF400B6BAF7 /* NSFileManager+TSQFileBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = C88DE0A61629CAF400B6BAF7 /* NSFileManager+TSQFileBlocks.m */; };
 		C8AA676A161CC13F00427A65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8AA6769161CC13F00427A65 /* UIKit.framework */; };
 		C8AA676C161CC13F00427A65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8AA676B161CC13F00427A65 /* Foundation.framework */; };
 		C8AA676E161CC13F00427A65 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8AA676D161CC13F00427A65 /* CoreGraphics.framework */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C88DE0A51629CAF400B6BAF7 /* NSFileManager+TSQFileBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+TSQFileBlocks.h"; sourceTree = "<group>"; };
+		C88DE0A61629CAF400B6BAF7 /* NSFileManager+TSQFileBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+TSQFileBlocks.m"; sourceTree = "<group>"; };
 		C8AA6765161CC13F00427A65 /* simulator_photo_import.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = simulator_photo_import.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8AA6769161CC13F00427A65 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C8AA676B161CC13F00427A65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -92,6 +95,8 @@
 				C8AA6781161CC13F00427A65 /* TSQViewController.h */,
 				C8AA6782161CC13F00427A65 /* TSQViewController.m */,
 				C8AA6784161CC13F00427A65 /* TSQViewController.xib */,
+				C88DE0A51629CAF400B6BAF7 /* NSFileManager+TSQFileBlocks.h */,
+				C88DE0A61629CAF400B6BAF7 /* NSFileManager+TSQFileBlocks.m */,
 				C8AA6770161CC13F00427A65 /* Supporting Files */,
 			);
 			path = simulator_photo_import;
@@ -181,6 +186,7 @@
 				C8AA6776161CC13F00427A65 /* main.m in Sources */,
 				C8AA677A161CC13F00427A65 /* TSQAppDelegate.m in Sources */,
 				C8AA6783161CC13F00427A65 /* TSQViewController.m in Sources */,
+				C88DE0A71629CAF400B6BAF7 /* NSFileManager+TSQFileBlocks.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
